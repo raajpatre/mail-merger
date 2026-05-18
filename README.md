@@ -25,21 +25,21 @@
 
 <table>
   <tr>
-    <td align="center"><strong>Landing Page</strong></td>
-    <td align="center"><strong>CSV Upload and Editor</strong></td>
+    <td align="center" colspan="2"><strong>Landing Page</strong></td>
   </tr>
   <tr>
-    <td><img width="1512" height="860" alt="Screenshot 2026-05-18 at 10 42 35 AM" src="https://github.com/user-attachments/assets/1204531f-039d-4fa7-93ca-14feca0fd335" /></td>
-    <td><img width="1512" height="862" alt="Screenshot 2026-05-18 at 10 45 15 AM" src="https://github.com/user-attachments/assets/6aa5bfa4-2671-4c9a-899f-c1e37966f327" />
+    <td colspan="2"><img width="1512" height="860" alt="Screenshot 2026-05-18 at 10 42 35 AM" src="https://github.com/user-attachments/assets/1204531f-039d-4fa7-93ca-14feca0fd335" /></td>
 </td>
   </tr>
   <tr>
-    <td align="center" col="2"><strong>Mail Preview</strong></td>
+    <td align="center"><strong>CSV Upload and Editor</strong></td>
+    <td align="center"><strong>Mail Preview</strong></td>
     <td></td>
   </tr>
   <tr>
+    <td><img width="1512" height="862" alt="Screenshot 2026-05-18 at 10 45 15 AM" src="https://github.com/user-attachments/assets/6aa5bfa4-2671-4c9a-899f-c1e37966f327" />
     <td><img width="1512" height="862" alt="Screenshot 2026-05-18 at 10 45 40 AM" src="https://github.com/user-attachments/assets/f6e3b0aa-9fab-4e25-8f64-9cfc79da72a7" /></td>
-    <td></td>
+    
   </tr>
 </table>
 
