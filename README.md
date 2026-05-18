@@ -1,31 +1,98 @@
 # MailMerger
 
-MailMerger is a local-first mail merge app built with Next.js, NextAuth, Google OAuth, and the Gmail API. A user can sign in with Google, upload a CSV or Excel file, compose a templated email with placeholders, preview row-one personalization, and send a test email or a throttled full batch.
+<p align="center">
+  <em>Sign in with Google. Upload your contacts. Send personalised emails at scale.</em>
+</p>
 
-## Features
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/NextAuth.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="NextAuth" />
+  <img src="https://img.shields.io/badge/Gmail_API-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail API" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/TipTap-0A0A0A?style=for-the-badge&logoColor=white" alt="TipTap" />
+</p>
 
-- Google sign-in with `gmail.send` scope and offline refresh tokens
-- CSV and Excel upload with automatic column header extraction
-- Rich text email editor with hyperlinks
-- Placeholder-driven personalization for subject and body
-- Test send and send-all flows
-- Sequential sending with per-row success and failure reporting
+<p align="center">
+  <img src="https://img.shields.io/github/stars/raajpatre/mail-merger?style=for-the-badge&color=FFD700" alt="Stars" />
+  <img src="https://img.shields.io/github/last-commit/raajpatre/mail-merger?style=for-the-badge&color=EA4335" alt="Last Commit" />
+  <img src="https://img.shields.io/badge/Runs_Locally-No_Deploy_Needed-555555?style=for-the-badge" alt="Local" />
+</p>
 
-## Tech Stack
+---
 
-- Next.js App Router
-- React
-- Tailwind-ready styling with custom CSS
-- NextAuth.js
-- `googleapis`
-- TipTap
-- Papa Parse and `xlsx`
+## 📸 Gallery
 
-## Local Setup
+<table>
+  <tr>
+    <td align="center"><strong>Landing Page</strong></td>
+    <td align="center"><strong>CSV Upload and Editor</strong></td>
+  </tr>
+  <tr>
+    <td><img width="1512" height="860" alt="Screenshot 2026-05-18 at 10 42 35 AM" src="https://github.com/user-attachments/assets/1204531f-039d-4fa7-93ca-14feca0fd335" /></td>
+    <td><img width="1512" height="862" alt="Screenshot 2026-05-18 at 10 45 15 AM" src="https://github.com/user-attachments/assets/6aa5bfa4-2671-4c9a-899f-c1e37966f327" />
+</td>
+  </tr>
+  <tr>
+    <td align="center" col="2"><strong>Mail Preview</strong></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><img width="1512" height="862" alt="Screenshot 2026-05-18 at 10 45 40 AM" src="https://github.com/user-attachments/assets/f6e3b0aa-9fab-4e25-8f64-9cfc79da72a7" /></td>
+    <td></td>
+  </tr>
+</table>
+
+---
+
+## 📖 Overview
+
+**MailMerger** is a locally-run mail merge tool built on the Gmail API. Upload a spreadsheet of contacts, write one email template using `{{column_name}}` placeholders, preview how each row personalises the message, and send the full batch — each email composed and dispatched as a genuine personalised send.
+
+No third-party email service. No SaaS subscription. You authenticate directly with your Google account, and emails go out through Gmail — so they arrive from your real address, with your real sending history, not a bulk-mail domain.
+
+---
+
+## ✨ Features
+
+- **Google OAuth sign-in** with `gmail.send` scope and offline refresh tokens — authenticate once, send any time
+- **CSV and Excel upload** with automatic column header extraction — any spreadsheet column becomes a `{{placeholder}}`
+- **Rich text email editor** (TipTap) — write HTML emails with bold, links, lists, and inline formatting
+- **Placeholder-driven personalisation** — subject line and body both support `{{column_name}}` tokens substituted per row
+- **Row-by-row preview** — inspect exactly how each contact's email will look before sending
+- **Test send** — send a draft to yourself first to verify formatting in a real inbox
+- **Throttled batch send** — sequential sending with configurable delay and per-row success / failure reporting
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Choice | Why |
+|---|---|---|
+| Framework | Next.js 14 (App Router) | Server Actions for Gmail API calls without a separate backend |
+| Auth | NextAuth.js + Google OAuth | Offline refresh tokens, secure session handling |
+| Email | `googleapis` (Gmail API) | Sends from user's real Gmail account, not a third-party relay |
+| Rich text | TipTap | Headless, extensible, produces clean HTML output |
+| CSV/Excel | PapaParse + `xlsx` | Handles both formats, auto-extracts column headers |
+| Styling | Tailwind CSS + custom CSS | Utility-first with minimal overrides |
+| Language | TypeScript | End-to-end type safety |
+
+---
+
+## 🚀 Local Setup
+
+MailMerger runs locally — the Gmail OAuth callback requires a `localhost` redirect URI, so it doesn't suit a serverless public deployment.
+
+### Prerequisites
+
+- Node.js 18+
+- A Google Cloud project with OAuth credentials
 
 ### 1. Clone and install
 
 ```bash
+git clone https://github.com/raajpatre/mail-merger.git
+cd mail-merger
 npm install
 ```
 
@@ -39,12 +106,7 @@ This creates `.env.local` from `.env.example` and generates a `NEXTAUTH_SECRET` 
 
 ### 3. Add your Google OAuth credentials
 
-Open `.env.local` in the project root and replace the placeholder values for:
-
-- `GOOGLE_CLIENT_ID`
-- `GOOGLE_CLIENT_SECRET`
-
-Your file should look like this after editing:
+Open `.env.local` and replace the two placeholder values:
 
 ```env
 NEXTAUTH_URL=http://localhost:3000
@@ -54,155 +116,52 @@ GOOGLE_CLIENT_ID=your-client-id-from-google-cloud
 GOOGLE_CLIENT_SECRET=your-client-secret-from-google-cloud
 ```
 
-You can get these two values from a Google Cloud OAuth client JSON file. If you downloaded a file that looks like this:
+To get those values:
 
-```json
-{
-  "web": {
-    "client_id": "...",
-    "client_secret": "..."
-  }
-}
-```
+1. Go to [console.cloud.google.com](https://console.cloud.google.com)
+2. Create a project → APIs & Services → Credentials
+3. Create an **OAuth 2.0 Client ID** (Web application type)
+4. Add `http://localhost:3000/api/auth/callback/google` as an Authorised Redirect URI
+5. Enable the **Gmail API** on your project
+6. Download the credentials JSON and extract `client_id` and `client_secret`
 
-then:
-
-- `client_id` goes into `GOOGLE_CLIENT_ID`
-- `client_secret` goes into `GOOGLE_CLIENT_SECRET`
-
-### 4. Configure Google Cloud
-
-Follow these steps in [Google Cloud Console](https://console.cloud.google.com/):
-
-#### A. Create or choose a project
-
-1. Open the top project selector in Google Cloud Console.
-2. Create a new project or choose an existing one.
-3. Wait until that project is the active project.
-
-#### B. Enable the Gmail API
-
-1. In the left sidebar, go to `APIs & Services` -> `Library`.
-2. Search for `Gmail API`.
-3. Open `Gmail API`.
-4. Click `Enable`.
-
-#### C. Configure the OAuth consent screen
-
-1. Go to `APIs & Services` -> `OAuth consent screen`.
-2. Choose `External` unless this is only for a Google Workspace organization you control.
-3. Click `Create`.
-4. Fill in the required fields:
-   - App name: for example `MailMerger`
-   - User support email: your email
-   - Developer contact email: your email
-5. Save and continue.
-
-#### D. Add the Gmail permission
-
-1. In the consent screen flow, open the `Scopes` step.
-2. Click `Add or Remove Scopes`.
-3. Search for:
-   `https://www.googleapis.com/auth/gmail.send`
-4. Select it and save.
-
-This app also uses basic Google sign-in info such as email and profile, which Google usually handles automatically during OAuth setup.
-
-#### E. Add test users
-
-If your app is still in testing mode:
-
-1. In `OAuth consent screen`, open the `Test users` section.
-2. Click `Add users`.
-3. Add the Gmail address you will use to sign in locally.
-4. Save.
-
-If you skip this step while the app is in testing mode, Google sign-in will fail for accounts that are not listed.
-
-#### F. Create OAuth credentials
-
-1. Go to `APIs & Services` -> `Credentials`.
-2. Click `Create Credentials`.
-3. Choose `OAuth client ID`.
-4. For application type, choose `Web application`.
-5. Give it a name like `MailMerger Local`.
-
-#### G. Add the correct redirect settings
-
-Inside that OAuth client:
-
-For `Authorized JavaScript origins`, add:
-
-```text
-http://localhost:3000
-```
-
-For `Authorized redirect URIs`, add:
-
-```text
-http://localhost:3000/api/auth/callback/google
-```
-
-Then click `Create`.
-
-#### H. Copy the credentials into `.env.local`
-
-After the OAuth client is created:
-
-1. Copy the `Client ID`
-2. Copy the `Client secret`
-3. Paste them into `.env.local` as:
-
-```env
-GOOGLE_CLIENT_ID=...
-GOOGLE_CLIENT_SECRET=...
-```
-
-#### I. Important local URL note
-
-This README assumes you run the app locally at:
-
-```text
-http://localhost:3000
-```
-
-If you change the port, for example to `3001`, you must also update all of these:
-
-- `NEXTAUTH_URL` in `.env.local`
-- the OAuth client's `Authorized JavaScript origins`
-- the OAuth client's `Authorized redirect URIs`
-
-### 5. Start the app
+### 4. Run
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000), sign in with Google, and start merging.
 
-## Typical Workflow
+---
 
-1. Sign in with Google
-2. Upload a `.csv` or `.xlsx` file
-3. Pick the recipient column
-4. Write a subject and HTML email body using placeholders like `{{Name}}`
-5. Preview row-one personalization
-6. Send a test email to yourself
-7. Send the full batch once the preview looks right
+## 📋 Using MailMerger
 
-## Sample Data
+1. **Sign in** with the Google account you want to send from
+2. **Upload** a CSV or Excel file — every column becomes an available placeholder
+3. **Compose** your email in the rich text editor using `{{column_name}}` placeholders
+4. **Preview** each row to verify personalisation looks correct
+5. **Test send** one email to yourself
+6. **Send all** — MailMerger sends sequentially and reports success or failure per row
 
-A starter CSV is included at `public/sample-contacts.csv`.
+---
 
-## Scripts
+## ⚠️ Gmail API Limits
 
-- `npm run dev` starts the dev server
-- `npm run build` creates a production build
-- `npm run start` runs the production server
-- `npm run setup:local` creates `.env.local` for a fresh clone
+Gmail's default sending quota is 500 emails per day for personal accounts, 2,000 per day for Google Workspace accounts. MailMerger's throttled sequential sender stays within these limits for typical use cases. If you need higher volume, use a Workspace account.
 
-## Notes
+---
 
-- Gmail limits and anti-abuse systems still apply, so the app sends sequentially with a delay.
-- This project is designed for local use with each user bringing their own Google OAuth credentials.
-- Do not commit `.env.local` or any real client secrets.
+## 📄 License
+
+MIT — fork, adapt, and run it yourself.
+
+---
+
+<p align="center">
+  If this saved you from manually personalising 200 emails, consider dropping a ⭐
+</p>
+
+<p align="center">
+  <em>Built by <a href="https://github.com/raajpatre">raajpatre</a></em>
+</p>
